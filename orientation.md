@@ -26,4 +26,5 @@
 - 조이름, 조별 정기 모임 일정 정하기.
 
 ## 6. 1주차 학습 주제 안내
+- https://github.com/ossca-2025/pr-agent-mentoring/blob/main/weekly/plan.md
 
