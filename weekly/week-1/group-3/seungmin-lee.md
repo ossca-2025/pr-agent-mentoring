@@ -14,7 +14,7 @@
 <table align="center">
 <tr>
 <td align="center" width="160px">
-  <img src="https://github.com/Akileox/pr-agent-mentoring/blob/week1/group3-seungmin-lee/weekly/week-1/group-3/images/seungmin2.jpg?raw=true" width="300" alt="Seungmin's Photo" style="border-radius: 8px;"/>
+  <img src="https://github.com/Akileox/pr-agent-mentoring/blob/week1/group3-seungmin-lee/weekly/week-1/group-3/images/seungmin.jpg?raw=true" width="300" alt="Seungmin's Photo" style="border-radius: 8px;"/>
 </td>
 <td>
 
