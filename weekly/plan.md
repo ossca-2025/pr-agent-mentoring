@@ -24,6 +24,7 @@
   - main 브랜치에서 직접 수정,푸시 금지
   - 각 조별 브랜치(group-1 ~ group-5)에서 수정후, main 브랜치로 PR 보낼것
 - 개인별로 학습한 내용 정리해서 weekly/group-x/개인별이름.md 파일로 작성후 PR 보낼것
+  - 학습 참고 자료 : https://github.com/ossca-2025/pr-agent-mentoring?tab=readme-ov-file#7-%EC%B0%B8%EA%B3%A0-%EC%9E%90%EB%A3%8C
 
 **정기 모임**
 - 일정 : 4/20 19:00 ~ 21:00
