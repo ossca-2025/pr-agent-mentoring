@@ -124,6 +124,7 @@ git reset <commit>     # 커밋 상태로 되돌림
 
 #### 3. GitHub Flow 이해하기
 
+- 공부 중
 - Fork → Clone → Branch 생성 → Commit → Push → Pull Request → 코드 리뷰 → Merge
 - [GitHub Flow 소개 영상](https://youtu.be/EV3FZ3cWBp8)
 - [생활코딩 GitHub Flow 시리즈](https://youtube.com/playlist?list=PLuHgQVnccGMDWjb0TWItMCfDWDs8Y3Oo7)
@@ -171,7 +172,7 @@ print(response.text)
 - [공식 문서](https://qodo-merge-docs.qodo.ai/)
 - PR을 읽고 요약 및 리뷰 코멘트 자동 생성
 - GPT 기반의 코드 협업 도구로 오픈소스 프로젝트에 적용 가능
-
+- 공부 중
 ---
 
 ### 1.5 Python
@@ -236,30 +237,31 @@ class FourCal:
   - 로컬 이미지 파일(`seungmin.jpg`)을 프로젝트 내 `images/` 디렉토리에 저장한 뒤 마크다운 경로를 통해 불러옴
 - [x] GitHub Flow 기반의 협업 이해
   - `commit`, `push`, `pull request` 등의 절차를 실습하며, PR 기반 협업 흐름을 경험 중
+  - [x] LLM, PR Agent 문서 읽는 중...
 
-> 🔹 **질문**: PR 과정에서 코드 변경 이외에도 문서 업데이트(PR Agent 보고서 등)에 대한 자동 리뷰는 어떻게 트리거되는지, 세부 조건이 궁금합니다.
+> 🔹 **질문**: 
 
 ---
 
 ## 3. 어려웠던 점 및 질문
-
+- 기본적인 git 명령어를 다루는 과정이 처음에는 매우 생소했고, CLI 방식에 어려움을 느껴 POSIX CLI 관련 추가 공부 예정
 - **브랜치 전략**의 개념은 직관적이었지만, 실제 협업 시 브랜치 간 충돌 처리나 `rebase`의 적용 시점이 아직 명확하지 않음
 - WSL을 활용한 Git 작업은 환경 구성에는 편리했으나, GitHub와의 연결(SSH 키, credential 저장 등)에 대해 실습 중 약간의 혼란이 있었음
 - PR Agent가 자동으로 comment를 생성하는 로직(예: 어떤 기준으로 summary를 작성하는지)에 대한 원리를 아직 완전히 이해하지 못함
-- `add`, `commit`, `push` 명령어는 익숙해졌으나, `reset`, `revert`, `cherry-pick` 등은 실습 전 개념 수준에서 정리 중
+- image 삽입 과정에서 오류가 잦아 많이 commit함.
+- Python의 메소드 오버라이딩에 대한 개념이 명확하지 않고, 정규표현식 작성에 어려움을 느끼는 중
 
-> 🔹 **추가 궁금점**: PR Agent가 리뷰 comment를 생성하지 않는 경우는 어떤 케이스인지? 예: 문서 변경만 있는 경우에는 작동하지 않는지?
+> 🔹 **추가 궁금점**: 
 
 ---
 
 ## 4. 회고
 
-이번 주는 **기초 Git 흐름을 직접 체득하고**, PR 기반의 협업 방식이 단순한 명령어 암기 그 이상임을 깨닫는 시간이었다.  
+이번 주는 **기초 Git 흐름 체득, 이외 기초 지식 복습 및 습득**에 포커스를 두어 진행하였다.
 특히 `add → commit → push → PR → review → merge`라는 일련의 흐름이 단순 반복이 아니라  
 의사소통과 코드 품질을 위한 **중간 장치**라는 점에서 매우 인상 깊었다.
 
-또한, PR Agent를 통해 자동화된 리뷰 시스템을 경험하며  
-AI가 **'개발자의 협업 도우미'로 실질적으로 작동할 수 있음**을 확인한 것도 흥미로웠다.  
+또한, PR Agent를 통해 ~
 아직 초보 개발자로서 이해가 부족한 부분이 많지만,  
 단순히 따라 하기보다는 스스로 질문하고 학습 경로를 만들며 실력을 쌓아가는 것이 이번 활동의 가장 큰 수확이었다고 생각한다.
 
