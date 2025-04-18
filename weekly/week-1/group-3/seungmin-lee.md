@@ -66,7 +66,7 @@
 
 Git의 핵심: 데이터를 파일 시스템 스냅샷의 연속으로 취급, 매우 작은 크기
 
-![시간 순으로 프로젝트의 스냅샷 저장](/images/gitflow.png?raw=true)
+![시간 순으로 프로젝트의 스냅샷 저장](weekly/week-1/group-3/images/gitflow.png?raw=true)
 
 시간 순으로 프로젝트의 스냅샷 저장
 
@@ -83,7 +83,7 @@ Git의 핵심: 데이터를 파일 시스템 스냅샷의 연속으로 취급, �
         **status**(상태 확인, Untracked) / **git commit -m “message”**  
         → status를 다시 입력하면 nothing to commit | **log**: 버전 제작 관련 제공 (-p: 패치 내역 확인 가능)
 
-![git commit 구조 설명 이미지](/images/gitcommit.png?raw=true)
+![git commit 구조 설명 이미지](weekly/week-1/group-3/images/gitcommit.png?raw=true)
 
 - working tree: 수정 내역  
 - staging area: commit을 위해 수정 파일 **올려놓는 곳**  
@@ -196,7 +196,7 @@ class FourCal:
         return self.first / self.second
 ```
 
-![파이썬 클래스 구조 설명](/images/pythonclass.png)
+![파이썬 클래스 구조 설명](weekly/week-1/group-3/images/pythonclass.png)
 
 - 생성자 `__init__`, self, 메서드 오버라이딩, 상속 구조 학습
 - 클래스 변수와 객체 변수의 차이
