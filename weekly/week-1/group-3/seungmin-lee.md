@@ -265,6 +265,6 @@ class FourCal:
 아직 초보 개발자로서 이해가 부족한 부분이 많지만,  
 단순히 따라 하기보다는 스스로 질문하고 학습 경로를 만들며 실력을 쌓아가는 것이 이번 활동의 가장 큰 수확이었다고 생각한다.
 
-
+> 더 자세한 내용은 [Notion](https://www.notion.so/akileo/Assignment-Week1-Git-Base-1d6ab55c647080e98138e525c582e54d?pvs=4)에 정리 중 
 
 > *작성자: Seungmin Lee | Group 3 | OSSCA PR Agent Mentoring 2025*
