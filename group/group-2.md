@@ -14,10 +14,12 @@
   - 송지웅 GitHub: [@jwsong98](https://github.com/jwsong98)
   - 원종인 GitHub: [@wonggamggik](https://github.com/wonggamggik)
   - 이예찬 GitHub: [@yeadoh](https://github.com/yeadoh)
-  - 김상은 GitHub: 
+  - 김상은 GitHub: [@vmkmym](https://github.com/vmkmym)
 
 ## 📅 정기 모임 일정
-[2조 Notion 페이지](https://bittersweet-snowman-a04.notion.site/PR-Agent-2025-OSSCA-1d894f06d6d78049b2b6f0d531d5ddf8)
+조별 정기 모임 : 목요일 오후 9시   
+[2조 Notion 페이지](https://bittersweet-snowman-a04.notion.site/PR-Agent-2025-OSSCA-1d894f06d6d78049b2b6f0d531d5ddf8)   
+
 
 ### 조별 1차 정기 모임
 - 날짜: 25-04-17
@@ -29,11 +31,11 @@
 ## ✅ 정기 모임 출석부
 
 |     날짜      | 이상현(조장) | 송지웅 | 원종인 | 이예찬 | 김상은 |
-|:-----------:|:-------:|:---:|:----:|:----:|:---:|
-|  4/15(발대식)  |   ⭕   |  ⭕  |  ⭕  | ⭕ |  ❌  |
-| 4/17(조별 1차) |   ⭕   |  ⭕  |  ⭕  | ⭕ |  ❌  |
-| 4/20(정기 1차) |        |     |     |     |     |
-
+|:-----------:|:-------:|:---:|:---:|:---:|:---:|
+|  4/15(발대식)  |    ✅    |  ✅  |  ✅  |  ✅  | ⚠️  |
+| 4/17(조별 1차) |    ✅    |  ✅  |  ✅  |  ✅  | ⚠️  |
+| 4/20(정기 1차) |         |     |     |     |     |
+참석 : ✅, 개인사정으로 인한 불참 : ⚠️, 무단 불참 : ⛔
 ## 🎯 조별 목표
 - [ ] 매주 OSSCA 활동 관련 블로그 글 2편 이상 작성
 - [ ] 조별 모임에서 다른 조원의 발표 내용에 대해 최소 1개의 질문하기
