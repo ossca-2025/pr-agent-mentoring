@@ -14,7 +14,7 @@
 
 ## Learned (배운 점)
 - PR 작성의 중요성과 LLM 프롬프트 설계 중요성을 느꼈다.
-- Spring AI로 LLM API를 호출해봤다.
+- LLM과 Gemini API 실습을 통해 프롬프트 설계가 응답 품질에 큰 영향을 준다는 것을 배웠다. Spring AI로 LLM API를 호출해봤다.
 - Python 문법을 더 잘 배웠다. PR Agent 모델 호출하는 부분을 공부해 보았다.
 - Git 명령어와 LLM 개념, 원리, 프롬프트 엔지니어링 등을 더 잘 알게 되었다.
 
