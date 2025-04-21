@@ -84,20 +84,18 @@
 ## 정동환
 
 ### Liked (좋았던 점)
-- 
-- 
+- 멘토님이 자료를 주셔서 자료 서칭 시간을 줄일 수 있었다.
 
 ### Learned (배운 점)
-- 
-- 
+- LLM에 대해 자세히 공부할 수 있었다.
+- python package manager인 pip와 uv에 대해 공부했다.
 
 ### Lacked (부족했던 점)
-- 
-- 
+- Gemini API를 사용해보지 못해 아쉬웠다.
+- python에 대해서는 별로 공부하지 못했다
 
 ### Longed for (바라는 점)
-- 
-- 
+- PR-agent외에도 mcp, a2a에 대해서도 공부하고 사용해보고 싶다.
 
 ## 박상민
 
