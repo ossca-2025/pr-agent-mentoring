@@ -12,18 +12,11 @@
 
 | **도구** | **설명** |
 | --- | --- |
-| **PR Description
-(`/describe`)** | - PR 설명을 자동으로 생성
-- 제목(title), 타입(type), 요약(summary), 코드 워크스루(code walkthrough), 라벨(labels)까지 작성 |
-| **PR Review
-(`/review`)** | - PR에 대한 피드백을 제공
-- 코드 이슈, 보안 취약점, 리뷰 난이도 등을 조정 가능한 옵션과 함께 분석 |
-| **Code Suggestions
-(`/improve`)** | - PR의 코드 품질을 향상시킬 수 있도록 개선 제안(suggestions)을 자동으로 제공 |
-| **Question Answering
-(`/ask ...`)** | - PR이나 특정 코드 라인에 대해 자유 텍스트 형태로 질문을 하면 답변 제공 (`/ask "이 함수는 무슨 역할인가요?"` 처럼) |
-| **Update Changelog
-(`/update_changelog`)** | - PR 변경 사항을 기반으로 `CHANGELOG.md` 파일을 자동으로 업데이트 → 버전 관리에 유용 |
+| **PR Description (`/describe`)** | - PR 설명을 자동으로 생성 <br> - 제목(title), 타입(type), 요약(summary), 코드 워크스루(code walkthrough), 라벨(labels)까지 작성 |
+| **PR Review (`/review`)** | - PR에 대한 피드백을 제공 <br> - 코드 이슈, 보안 취약점, 리뷰 난이도 등을 조정 가능한 옵션과 함께 분석 |
+| **Code Suggestions (`/improve`)** | - PR의 코드 품질을 향상시킬 수 있도록 개선 제안(suggestions)을 자동으로 제공 |
+| **Question Answering (`/ask ...`)** | - PR이나 특정 코드 라인에 대해 자유 텍스트 형태로 질문을 하면 답변 제공 (`/ask "이 함수는 무슨 역할인가요?"` 처럼) |
+| **Update Changelog (`/update_changelog`)** | - PR 변경 사항을 기반으로 `CHANGELOG.md` 파일을 자동으로 업데이트 → 버전 관리에 유용 |
 
 아래는 Github App을 이용한 실행 예시와 함께 오픈소스 PR-Agent가 제공하는 기능을 정리해보았다.
 
