@@ -7,13 +7,13 @@
 
 ## 👥 조원 소개
 - 조장: 김지한
-  - [@jihan-chillin](https://github.com/jihan-chillin)
+  - [@jihan-chillin](https://github.com/jihan-chillin) | [Blog](https://kojub.tistory.com/)
 - 조원:
-  - 김가희 : [@soprue](https://github.com/soprue)
-  - 한유진 : [@yujindonut](https://github.com/yujindonut)
+  - 김가희 : [@soprue](https://github.com/soprue) | [Blog](https://velog.io/@aborrencce/posts)
+  - 한유진 : [@yujindonut](https://github.com/yujindonut) | [Blog](https://vanillacreamdonut.tistory.com/)
   - 주동욱 : [@Judonguk](https://github.com/Judonguk)
   - 김예지 : [@isExample](https://github.com/isExample)
-  - 윤선웅 : [@ssunbear](https://github.com/ssunbear)
+  - 윤선웅 : [@ssunbear](https://github.com/ssunbear) | [Blog](https://define-me.tistory.com/)
 
 ## 📅 정기 모임 일정
 - 요일: 목
@@ -29,7 +29,7 @@
 | 4/15  |   ✅   |   ✅   |   ✅   |   ✅   |   ✅   |   ✅   |
 | 4/17  |   ✅   |   ✅   |   ✅   |   ✅   |   ✅   |   ✅   |
 | 4/20  |   ✅   |   ✅   |   ✅   |   ⚠️   |   ✅   |   ✅   |
-| 4/24  |        |        |        |        |        |        |
+| 4/24  |   ✅   |   ✅   |   ✅   |   ⚠️   |   ✅   |   ✅   |
 | 4/27  |        |        |        |        |        |        |
 | 5/1   |        |        |        |        |        |        |
 | 5/4   |        |        |        |        |        |        |
