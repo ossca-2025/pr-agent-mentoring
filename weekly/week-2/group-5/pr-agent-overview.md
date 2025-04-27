@@ -188,7 +188,7 @@ publish_labels = true  # describe 결과로 자동 생성된 label들을 PR에 �
 #### 실제 사용 사례
 
 ![alt text](images/image-4.png)
-![alt text](images/mage-5.png)
+![alt text](images/image-5.png)
 
 - **AI 선 리뷰 + 인간 최종 검토** 체계 확산
 - **사내 LLM 도입**으로 비용/보안 최적화
