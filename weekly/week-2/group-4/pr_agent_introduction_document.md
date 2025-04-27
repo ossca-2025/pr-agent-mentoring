@@ -111,7 +111,8 @@
 
 [Test by smartandhandsome · Pull Request #3 · smartandhandsome/qodo-merge-test](https://github.com/smartandhandsome/qodo-merge-test/pull/3)
 
-## **3. [Core Abilities](https://qodo-merge-docs.qodo.ai/core-abilities/) 정리 💎**
+## **3. [Core Abilities](https://qodo-merge-docs.qodo.ai/core-abilities/) 정리**
+💎 (제외)
 
 ### [1] Code validation
 
