@@ -19,8 +19,16 @@
 <br/>
 
 --- 
-### 목차
+## 목차
 
+### [1. PR Agent](#PR-Agent)
+### [2. AI 코드리뷰의 현재 동향과 미래 전망](#AI-코드리뷰의-현재-동향과-미래-전망)
+### [3. 유사 AI 코드리뷰 도구](#유사-AI-코드리뷰-도구)
+- [GitHub Copilot](#GitHub-Copilot)
+- [Gemini Code Assist](#Gemini-Code-Assist)
+- [CodeRabbit](#CodeRabbit)
+
+<br/>
 
 # PR Agent
 
@@ -562,8 +570,8 @@
 ### 결론 
 
 > 요약 <br/>
-> **PR Agent**: 팀 규칙을 엄격히 따르고 구조적 리뷰가 중요한 경우. <br/>
-> **CodeRabbit**: 빠른 피드백과 대화형 리뷰가 필요한 경우.
+> **- PR Agent**: 팀 규칙을 엄격히 따르고 구조적 리뷰가 중요한 경우. <br/>
+> **- CodeRabbit**: 빠른 피드백과 대화형 리뷰가 필요한 경우.
 
 1. PR Agent를 사용하면 좋을 것 같은 상황
 
