@@ -6,9 +6,9 @@
 ### 주요 활동
 - PR Agent의 플랫폼 구조 및 주요 기능 분석
 - 유사 AI 코드리뷰 도구 조사
-  - GitHub Copilot
-  - Gemini Code Assist
-  - CodeRabbit
+  - GitHub Copilot (김가희, 윤선웅 조사)
+  - Gemini Code Assist (김예지, 한유진 조사)
+  - CodeRabbit (김지한, 주동욱 조사)
 - 도구 간 기능, 성능, 사용성 관점 비교 분석
 
 ### 학습 주제
