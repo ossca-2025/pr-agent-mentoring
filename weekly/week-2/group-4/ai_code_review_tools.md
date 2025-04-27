@@ -3,6 +3,7 @@
 1. GitHub Copilot
 2. Gemini Code Assist
 3. CodeRabbit
+4. 도구 간 기능, 성능, 사용성 관점 비교 분석
 
 <br>
 
@@ -362,6 +363,8 @@ Gemini와 함께 만든 웹사이트 결과물
 
     ![image.png](./images/ai_gemini_14.png)
 
+---
+<br>
 <br>
 
 # 3. CodeRabbit
@@ -479,3 +482,16 @@ chat:
 [공식문서](https://docs.coderabbit.ai/??utm_medium=cpc&utm_source=google&utm_campaign=20944421732&utm_content=158532047035&utm_term=coderabbit&gclid=Cj0KCQjw_JzABhC2ARIsAPe3ynpwuvk8JZv5AR23bD7IBlWSsWOfzBsjnxBCTxOjLkTkPXNaUORuS6YaAgFbEALw_wcB&_gl=1*mcuzal*_gcl_aw*R0NMLjE3NDUzMzQyNzUuQ2owS0NRandfSnpBQmhDMkFSSXNBUGUzeW5wd3V2azhKWnY1QVIyM2JEN0lCbFdTc1dPZnpCc2pueEJDVHhPakxrVGtQWE5hVU9SdVM2WWFBZ0ZiRUFMd193Y0I.*_gcl_au*MTQxMjkyOTc5MC4xNzQ1MzIyNDEw*_ga*MjA4NzgxMjE3MC4xNzQ1MzIyNDEw*_ga_7YWHDJSXQ1*MTc0NTMzNDI3My4yLjEuMTc0NTMzNDMwOC4wLjAuOTc4OTA5NDg.)
 
 [인프런 기술 블로그](https://tech.inflab.com/20250303-introduce-coderabbit/)
+
+---
+<br>
+<br>
+
+# 4. 도구 간 기능, 성능, 사용성 관점 비교 
+
+| 구분 | GitHub Copilot | Gemini Code Assist | CodeRabbit |
+|---|---|---|---|
+| 주요 기능 | - 코드 자동 완성 (IDE, 주석 기반) <br> - Copilot Chat (코드 설명, 생성, 테스트, 수정, 문서화) <br> - PR 리뷰 제안 (AI 기반) <br> - CLI 지원 <br> | - 코드 생성 및 자동 완성 (IDE) <br> - 대화형 Chat (설명, 생성, 수정, @파일 컨텍스트) <br> - 스마트 액션 (IDE 우클릭 메뉴) <br> - PR 리뷰 자동화 <br> | - 자동 PR 리뷰 (보안, 성능, 아키텍처, 모범 사례, DX) <br> - 리뷰 요약 보고서 <br> - 코드 변경 시각화 (시퀀스 다이어그램 등) <br> - PR 내 대화형 상호작용 <br> - DocString 자동 생성<br> - 팀 컨벤션 학습 |
+| 성능 | - 최신 GPT-4o 모델 사용 <br> - 빠른 코드 완성 속도 <br> - 제안 품질 편차 가능성 <br> - 프로젝트 전체 맥락 이해 제한적 | - 최신 Gemini 2.5 모델, 2.0 모델 사용 <br> - 대규모 코드베이스 이해 능력 우수 (1M 토큰) <br> - 복잡한 작업에 강점 <br> - 최신 기술 이슈 해결 능력 제한적일 수 있음 <br> - 대화 중 문맥 누수 가능성 | - PR 변경에 따른 실시간 분석 <br> - 리뷰 품질은 설정 및 학습에 영향 받음 <br> - 코드 완성보다는 리뷰 품질에 초점 |
+| 사용성 | - 주요 IDE 지원 <br> - 직관적인 Chat 인터페이스 및 슬래시 명령어 <br> - CLI 환경 지원 <br> - 무료 버전 제공 | - 주요 IDE 지원 <br> - Chat, 스마트 액션, 슬래시 명령어 등 다양한 인터페이스 <br> - GitHub 연동 PR 리뷰 <br> - 개인용 무료 버전 제공 | - 다양한 Git 플랫폼 지원 <br> - YAML 또는 UI 통한 쉬운 설정 <br> - PR 인터페이스 내에서 직접 상호작용 <br> - 리뷰 스타일 선택 가능 ('chill', 'strict') <br> - PR 워크플로우에 특화 |
+| 특징 요약 | 개발 중 실시간 코드 생성/완성에 강점. Chat을 통한 다용도 지원. | 대규모 코드 이해 및 IDE 내 다양한 AI 기능 통합이 장점. 무료 버전 사용량 충분. | 자동화된 고품질 PR 리뷰 및 팀 맞춤 설정에 특화. |
