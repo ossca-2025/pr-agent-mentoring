@@ -1,3 +1,5 @@
+5조 최민주 2주차 과제입니다.
+
 ## RAG
 
 ### Retrieval-Augmented Generation (검색 증강 생성)
