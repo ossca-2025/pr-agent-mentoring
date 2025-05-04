@@ -2,9 +2,14 @@
 ## [4조] 주제 3: review(설정 및 코드) 조사, 분석, 사용, 정리
 - 진행 방식: 조별 회의 진행 후 review 기능 관련 설정 옵션 분담, 팀원 개별 branch 생성해 PR /review 사용해보고 담당한 옵션 분석 및 정리
 - 수행 결과: 전원 완료 (이서현, 정동환, 박영신, 박상민, 김범진)
+
 ---
-## PR Agent 사용을 위한 세팅 및 /review 사용하기
-- 세팅 순서
+
+# PR Agent review 기능 개요
+> 조사자: 이서현
+
+### PR Agent 사용을 위한 세팅 및 /review 사용하기
+<세팅 순서>
    1. pr-agnet 레포지토리로 이동
    2. 의존성 설치
    3. `pr_agent/settings/.secrets_template.toml` 복사해 `pr_agent/settings/.secrets.toml` 생성 (.gitignore를 위한 것)
@@ -12,7 +17,7 @@
       - 50번째 줄 gemini_api_key=에 Google AI Studio에서 발급받은 나의 gemini api key 작성
       - 54번째 줄 user_token=에 GitHub에서 생성한 나의 Personal access token 작성
    5. `python3 -m pr_agent.cli --pr_url <pr링크> <명령어>` 입력해 사용 가능 -> 명령어로 review 입력
-```
+```shell
 (base) leeseohyun@iseohyeon-ui-MacBookPro ~ % cd Documents/GitHub/pr-agent
 
 (base) leeseohyun@iseohyeon-ui-MacBookPro pr-agent % pip install -e .
@@ -53,9 +58,13 @@ graph TD
 
 1. CLI가 실행되면 → PRReviewer 인스턴스 생성 (pr_agent.tools.pr_reviewer.PRReviewer)
 2. PRReviewer.init 실행
-   - git_provider 세팅 → PR 정보를 가져올 준비
-   - PR description, files, languages, 커밋 메시지 등 메타데이터 준비
-  
+   - git_provider 세팅: URL에서 플랫폼을 파악해, GitHub/GitLab 공통 인터페이스를 반환
+   - incremental 증분 리뷰 설정: i 옵션이 있으면 “이전 리뷰 이후 변경된 파일만 검사” 모드로 전환
+   - 언어:  PR에 포함된 파일들의 언어 통계를 보고 메인 언어를 결정
+   - PR 설명 & AI 메타데이터: - PR 설명(`get_pr_description`)을 읽고 `enable_ai_metadata` 옵션이 켜져 있으면 diff에 AI 태그 주입 (“AI가 코드를 더 잘 이해하도록” PR의 diff 파일들에 추가적인 메타데이터 주석을 삽입하는 기능)
+   - 템플릿 변수 준비: Jinja2 템플릿(시스템·유저 프롬프트)에 넘길 공용 변수 딕셔너리
+   - 토큰 핸들러 생성: TokenHandler에 PR 정보와 시스템/유저 프롬프트를 넘겨, 토큰 관리 준비
+
 **[SETUP] 설정 적용**
 
 3. pr_agent.git_providers.utils:apply_repo_settings
@@ -63,71 +72,64 @@ graph TD
 
 **[CHECK] PR 상태 확인**
 
-4. PRReviewer.run() → 초기 상태 체크
-   - PR 파일이 없으면 → 스킵
-   - 증분 리뷰 조건 (_can_run_incremental_review()) 만족 못하면 → 스킵
-   - 증분 리뷰이고 변경 파일도 없으면 → 스킵 + 코멘트 남기고 종료
-5. Preparing review 코멘트 임시로 게시
+4. PRReviewer.run() 시작, 초기 상태 체크
+   - PR 파일이 없으면 -> 스킵
+   - 증분 리뷰 조건 (_can_run_incremental_review()) 만족 못하면 -> 스킵
+   - 증분 리뷰이고 변경 파일도 없으면 -> 스킵 + 코멘트 남기고 종료
+6. Preparing review 코멘트 임시 게시
 
 **[PROCESS] 리뷰 준비 및 AI 호출**
 
-6. 티켓 추출 (있을 경우 → extract_and_cache_pr_tickets)
+6. 티켓 추출 (있을 경우 extract_and_cache_pr_tickets)
    - PR 커밋 메시지나 diff에서 Jira 등 이슈 키워드 찾기
 7. pr_agent.algo.pr_processing:get_pr_diff
    - 전체 diff or 증분 diff 계산
    - diff 내 AI 메타데이터 주입 (enable_ai_metadata 옵션 시)
    - 토큰 계산 및 체크
-8. retry_with_fallback_models → _prepare_prediction
+8. retry_with_fallback_models -> _prepare_prediction
    - AI 모델에게 리뷰 요청 (diff 기반으로 system/user 프롬프트 전달)
    - 예외 발생하면 fallback 모델로 재시도
 
 **[POST PROCESS] 리뷰 결과 처리**
 
-9. _prepare_pr_review
+9. _prepare_pr_review로 리뷰 생성
    - AI 응답을 yaml → dict → markdown 리뷰로 변환
    - 보안/테스트/effort 검토 필드가 있을 경우 라벨로 세팅 (set_review_labels)
-10. 리뷰 결과 게시
-   - 증분 리뷰 → 일반 코멘트
-   - 일반 리뷰 → Persistent 코멘트 (기존 리뷰 갱신 or 신규 등록)
+10. 리뷰 결과 게시 (publish_output이 켜져 있으면)
+   - 증분 리뷰가 아니며 persistent_comment 설정이 켜져 있음 -> 영구 코멘트로 리뷰 게시
+   - 증분 리뷰거나 persistent_comment 옵션이 꺼져 있으면 -> 일반 코멘트로 리뷰 게시
 11. 임시 코멘트 제거
 
 **[DONE] 리뷰 완료 or 실패**
 
 12. 예외 발생 or 리뷰 없을 경우 → 초기 임시 코멘트만 제거 후 종료
 
-## Full Review vs. Incremental Review
-- **Full Review(전체 리뷰)** :  PR 전체 diff를 기반으로 리뷰. 현재 PR 전체 변경사항에 대한 리뷰 코멘트가 담김. (기본 동작 모드)
-   - 사용 시점: 처음 PR이 만들어졌을 때, 증분 리뷰 옵션을 설정하지 않았을 때, Incremental 리뷰 조건이 만족되지 않았을 때.
-   - `python3 -m pr_agent.cli --pr_url <PR URL> review`
-- **Incremental Review(증분 리뷰)** : 마지막 리뷰 이후 새로 생긴 커밋이나 변경사항만 리뷰.
-   - 사용 방법: 옵션 -i를 붙임 `python3 -m pr_agent.cli --pr_url <PR URL> review -i`
-     (pr_reviewer.py의 self.incremental = self.parse_incremental(args)에서 -i를 인식, is_incremental이 True로 설정됨) 
-   - 이점: 이미 리뷰한 부분은 제외 → 새로 변경된 부분만 집중해서 리뷰. 이미 리뷰 받은 후 반영한 커밋만 재검토할 때 효율적.
-   - 조건을 만족해야 함: 새 커밋이 최소 개수 이상 존재, 마지막 리뷰 이후 시간이 충분히 경과함 등 (옵션으로 임계값 설정)
-
 ---
 
-## configuration.toml의 review 관련 옵션 분석
+<br>
+<br>
+
+# configuration.toml의 review 관련 옵션
 ```toml
 [pr_reviewer] # /review #
-# enable/disable features -> <1>에서 소개
+# enable/disable features
 require_score_review=false
 require_tests_review=true
 require_estimate_effort_to_review=true
 require_can_be_split_review=false
 require_security_review=true
 require_ticket_analysis_review=true
-# general options -> <2>에서 소개
+# general options
 persistent_comment=true
 extra_instructions = ""
-final_update_message=true
-# review labels -> <3>에서 소개
+final_update_message = true
+# review labels
 enable_review_labels_security=true
 enable_review_labels_effort=true
-# specific configurations for incremental review (/review -i) -> <4>에서 소개
-require_all_thresholds_for_incremental_review=true
-minimal_commits_for_incremental_review=100
-minimal_minutes_for_incremental_review=50
+# specific configurations for incremental review (/review -i)
+require_all_thresholds_for_incremental_review=false
+minimal_commits_for_incremental_review=0
+minimal_minutes_for_incremental_review=0
 enable_intro_text=true
 enable_help_text=false # Determines whether to include help text in the PR review. Enabled by default.
 ```
@@ -135,7 +137,7 @@ enable_help_text=false # Determines whether to include help text in the PR revie
 
 ## <1> enable/disable features (1/2)
 
-> // 조사자: 박상민
+> 조사자: 박상민
 
 기본 세팅:
 ```toml
@@ -146,16 +148,16 @@ require_estimate_effort_to_review=true
 ### 기본 세팅인 경우 예시
 ![image](https://github.com/user-attachments/assets/7fae19fd-e87e-4741-9b55-1c59da09757e)
 
-### require_score_review: PR 평가 점수 표시 기능 활성화(true)/비활성화(false)
+### `require_score_review`: PR 평가 점수 표시 기능 활성화(true)/비활성화(false)
 ![image](https://github.com/user-attachments/assets/15d89906-ab20-4c4e-95ea-75fdb6b269eb)
 
-### require_tests_review: 테스트 리뷰 활성화(true)/비활성화(false) -> 테스트를 추가했을 때 "PR contains tests", 관련 테스트가 없으면 "No relevant tests"
+### `require_tests_review`: 테스트 리뷰 활성화(true)/비활성화(false) -> 테스트를 추가했을 때 "PR contains tests", 관련 테스트가 없으면 "No relevant tests"
 ![image](https://github.com/user-attachments/assets/bd1b8bc9-4263-4fed-afe4-10827a51072e)
 
 ### + 테스트 커버리지 관련 테스트
 ![image](https://github.com/user-attachments/assets/62153105-57b6-4692-b383-68ca56299f14)
 
-### require_estimate_effort_to_review: 리뷰 난이도(n/5) 라벨 표시 기능 활성화(true)/비활성화(false)
+### `require_estimate_effort_to_review`: 리뷰 난이도(n/5) 라벨 표시 기능 활성화(true)/비활성화(false)
 
 ### + 리뷰 관련 model 요청 및 프롬프트 분석
 외부 LLM 모델에게 전송하는 prompt는 두 부분 으로 구성됨: system prompt, user prompt
@@ -191,20 +193,20 @@ review:
 
 ## <1> enable/disable features (2/2)
 
-> // 조사자: 정동환
+> 조사자: 정동환
 
 ```toml
 require_can_be_split_review=false
 require_security_review=true
 require_ticket_analysis_review=true
 ```
-### require_can_be_split_review: 비활성화 시(false) PR이 여러 주제를 포함하고 있는지 확인하고 더 작은 PR로 분할할 수 있는지 확인하는 섹션 추가
-- 기본값 false
+### `require_can_be_split_review`: 비활성화 시(false) PR이 여러 주제를 포함하고 있는지 확인하고 더 작은 PR로 분할할 수 있는지 확인하는 섹션 추가
+- 기본값: false
 - true일 시 동작하는 로직은 코드에서 찾지 못하였으나, 모델에 영향을 주는 인자로 추측
 
 
-### require_security_review: 활성화 시(true) PR에 보안 또는 취약점 문제가 있는지 확인하는 섹션 추가
-- 기본값 true. true면 `pr_agent/tools/pr_reviewer.py`에서 아래 코드 실행
+### `require_security_review`: 활성화 시(true) PR에 보안 또는 취약점 문제가 있는지 확인하는 섹션 추가
+- 기본값: true. true면 `pr_agent/tools/pr_reviewer.py`에서 아래 코드 실행
   - `data['review']['security_concerns']`: AI 모델이 생성한 리뷰 데이터에서 `'security_concerns'` 항목의 값을 가져옴
   - 주석에서 이 값이 일반적으로 `"yes, because..."` 형식으로 작성됨을 알 수 있음
   - 추출한 텍스트를 소문자로 변환한 후 `'yes'`나 `'true'`라는 단어가 포함되어 있는지 확인
@@ -216,8 +218,8 @@ if get_settings().pr_reviewer.enable_review_labels_security and get_settings().p
   if security_concerns_bool:
   review_labels.append('Possible security concern')
 ```
-### require_ticket_analysis_review: 활성화 시(true) PR에 GitHub 또는 Jira 티켓 링크가 포함된 경우 PR이 실제로 티켓 요구사항을 충족했는지 확인하는 섹션 추가
-- 기본값 true. `pr_reviewer.py`의 137번째 줄에서 `await extract_and_cache_pr_tickets(self.git_provider, self.vars)`
+### `require_ticket_analysis_review`: 활성화 시(true) PR에 GitHub 또는 Jira 티켓 링크가 포함된 경우 PR이 실제로 티켓 요구사항을 충족했는지 확인하는 섹션 추가
+- 기본값: true. `pr_reviewer.py`의 137번째 줄에서 `await extract_and_cache_pr_tickets(self.git_provider, self.vars)`
 - `require_ticket_analysis_review`이 true일시 `pr_agent/tools/ticket_pr_compliance_check.py` 내부에서 아래 로직 실행
   1. 이미 캐시된 티켓이 있는지 확인
   2. 캐시된 티켓이 없으면 새로 추출
@@ -243,17 +245,17 @@ if get_settings().pr_reviewer.enable_review_labels_security and get_settings().p
 ---
 
 ## <2> General Options
-> // 조사자: 박영신
+> 조사자: 박영신
 ```toml
 persistent_comment=true
 extra_instructions = ""
 final_update_message = true
 ```
-### persistent_comment: true로 설정하면, 리뷰 댓글이 지속적으로 유지.
+### `persistent_comment`: true로 설정하면, 리뷰 댓글이 지속적으로 유지.
 - 기본값 true. 즉, 새로운 리뷰 요청이 있을 때마다 기존 리뷰 댓글을 수정하여 반영합니다. (댓글이 새로 달리는 게 아니라 기존 것을 업데이트)
-### final_update_message: true로 설정하면, 온라인 코멘트 모드에서 지속적인 리뷰 댓글이 업데이트될 때 PR에 "리뷰가 업데이트되었습니다"라는 짧은 메시지와 링크가 자동으로 추가.
-- 기본값 true.
-### extra_instructions: 리뷰 도구에게 주는 선택적인 추가 지시사항
+### `final_update_message`: true로 설정하면, 온라인 코멘트 모드에서 지속적인 리뷰 댓글이 업데이트될 때 PR에 "리뷰가 업데이트되었습니다"라는 짧은 메시지와 링크가 자동으로 추가.
+- 기본값: true
+### `extra_instructions`: 리뷰 도구에게 주는 선택적인 추가 지시사항
 - AI가 리뷰할 때 해당 조건을 반영합니다. (예시: "파일 X의 변경 사항에 집중하고, ...는 무시하라")
 ### 3개 설정의 리뷰 동작 차이 실험 진행
 | 설정 항목 | 실험 목적 |
@@ -511,8 +513,8 @@ except Exception as e:
 - 라벨 설정 과정에서 발생할 수 있는 모든 예외를 처리합니다.
 - 로깅을 통해 문제를 추적할 수 있도록 합니다.
 
-## enable_review_labels_security: 활성화 시(true) PR 코드에서 보안 이슈가 감지되면 `possible security concern` 라벨을 추가
-- 기본값 true.
+## `enable_review_labels_security`: 활성화 시(true) PR 코드에서 보안 이슈가 감지되면 `possible security concern` 라벨을 추가
+- 기본값: true
 - 이 설정이 활성화되면, 코드 검토 과정에서 잠재적인 보안 취약점이 발견될 경우 자동으로 PR에 보안 관련 라벨이 추가됩니다.
 - 이를 통해 리뷰어는 PR 코드에서 잠재적인 보안 이슈를 미리 감지할 수 있습니다.
 ![image](https://github.com/user-attachments/assets/edb4dd8a-b3c3-4bf0-b275-e8a97c1bf7b1)
@@ -873,8 +875,8 @@ if security_concerns_bool:
     review_labels.append('Possible security concern')
 ```
 
-## enable_review_labels_effort: 활성화 시(true) PR(Pull Request)에 리뷰 노력 수준을 나타내는 라벨을 자동으로 추가
-- 기본값 true.
+## `enable_review_labels_effort`: 활성화 시(true) PR(Pull Request)에 리뷰 노력 수준을 나타내는 라벨을 자동으로 추가
+- 기본값: true
 - 이 설정이 활성화되면, PR을 검토하는 데 필요한 노력을 1-5 척도로 평가하여 'Review effort [X]/5' 형태의 라벨을 PR에 추가합니다.
 - 이를 통해 리뷰어는 어떤 PR이 더 많은 시간과 주의가 필요한지 빠르게 파악할 수 있습니다.
 
@@ -900,9 +902,60 @@ if security_concerns_bool:
         </details>
 - `set_review_labels` 메서드에서 이 값을 처리하여 적절한 라벨을 PR에 추가합니다.
 
-
 ---
+
 ## <4> specific configurations for incremental review
 > 조사자: 이서현
 
 
+## Full Review vs. Incremental Review
+- **Full Review(전체 리뷰)** : PR 전체 변경사항(diff)를 기반으로 리뷰한다. 기본 동작 모드.
+   - 동작 시점: 처음 PR이 만들어졌을 때, -i 옵션을 사용하지 않았을 때, -i 옵션을 설정했지만 Incremental 리뷰 조건이 만족되지 않았을 때.
+   - `python3 -m pr_agent.cli --pr_url <PR URL> review`
+   - -i 옵션을 사용하지 않은 경우 _can_run_incremental_review() 증분 리뷰 가능 체크를 건너뛰며 스킵 조건이 무시된다.
+- **Incremental Review(증분 리뷰)** : 마지막 리뷰 이후 새로 생긴 커밋이나 변경사항만 리뷰.
+   - 사용 방법: 옵션 -i를 붙임 `python3 -m pr_agent.cli --pr_url <PR URL> review -i`
+     (pr_reviewer.py의 self.incremental = self.parse_incremental(args)에서 -i를 인식, is_incremental이 True로 설정됨) 
+   - 이점: 이미 리뷰한 부분은 제외 → 새로 변경된 부분만 집중해서 리뷰. 이미 리뷰 받은 후 반영한 커밋만 재검토할 때 효율적.
+   - 조건을 만족해야 함: 새 커밋이 최소 개수 이상 존재, 마지막 리뷰 이후 시간이 충분히 경과함 등 (옵션으로 임계값 설정)
+
+
+## 일반 코멘트 (comment) vs 영구 코멘트 (persistent comment)
+
+- 증분 리뷰는 변경 이력을 쌓아야 하기 때문에 → 일반 코멘트로 계속 남긴다.
+- 전체 리뷰는 이전 리뷰는 필요 없고 최신 상태만 있으면 되기 때문에 영구 코멘트로 덮어쓴다.
+
+|  | 일반 코멘트	| 영구 코멘트 |
+| -- | -- | -- |
+| 메소드 | publish_comment() | publish_persistent_comment() |
+| PR 코멘트 방식	| 새로운 코멘트 생성(기존 코멘트를 수정하거나 지우지 않음)	| 기존 코멘트 업데이트로 덮어씀 (edit됨) -> 리뷰 코멘트 계속 갱신
+| 주 사용 시점	| 증분 리뷰 / 일반 리뷰 모두	| 일반 리뷰만 (증분은 x)
+| 코멘트 유지	| 코멘트가 계속 쌓임	| 항상 하나만 유지됨 |
+| 목적	| 일회성 리뷰 남기기 |  영구적 리뷰 기록이 필요, PR 리뷰가 진행되는 동안 최신화 | 
+
+
+### `minimal_commits_for_incremental_review`: 증분 리뷰를 시작하기 위해 최소한으로 누적되어야 하는 커밋 수
+- 기본값: 0
+- 사용 이점: 커밋이 너무 적으면 변경사항에 대해서만은 리뷰할 가치가 없다고 판단, 증분 리뷰 스킵
+   ```python
+   num_new_commits = len(self.incremental.commits_range)
+   not_enough_commits = num_new_commits < minimal_commits_threshold
+   ```
+
+### `minimal_minutes_for_incremental_review`: 마지막 리뷰 이후 최소 대기 시간(분)
+- 기본값: 0
+- 사용 이점: 마지막 리뷰와 시점을 비교, 너무 최근에 발생한 변경은 안정된 리뷰가 어려울 수 있다고 보고(가까운 시간 내 더 수정될 수 있음) 증분 리뷰 스킵
+   ```python
+   recent_commits_threshold = now - timedelta(minutes=minimal_minutes_threshold)
+   last_seen_commit_date = date of last reviewed commit
+   all_commits_too_recent = last_seen_commit_date > recent_commits_threshold
+   ```
+### `require_all_thresholds_for_incremental_review`: 위 두 조건(커밋 개수, 대기 시간) 중 모두 만족해야 증분 리뷰를 실행할지 여부
+- 기본값: true
+- true: 두 조건 모두 만족해야만 증분 리뷰를 허용. 하나라도 안 맞으면 스킵.
+- false: 둘 중 하나만 만족해도 증분 리뷰를 허용.
+   ```python
+   condition = any if require_all_thresholds else all
+   if condition((not_enough_commits, all_commits_too_recent)):
+    return False
+   ```
