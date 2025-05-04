@@ -135,6 +135,7 @@ if get_settings().pr_reviewer.enable_review_labels_security and get_settings().p
 ---
 
 ## (2) General Options
+> // 조사자: 박영신
 ```toml
 persistent_comment=true
 extra_instructions = ""
