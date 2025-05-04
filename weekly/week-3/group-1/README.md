@@ -146,12 +146,61 @@ pr-agent = "pr_agent.cli:run"
 
 ## 모델 설정
 
+[모델 설정 🔗](./configurations/model-config.md)
+
+- config
+- pr_custom_prompt
+- pr_config
+- litellm
+- pinecone
+- lancedb
+
 ## PR 관리
+
+[PR 관리 🔗](./configurations/pr-management.md)
+
+- pr_reviewer
+- pr_description
+- pr_questions
+- pr_code_suggestions
+- checks
 
 ## 기능 및 동작
 
+[기능 및 동작 🔗](./configurations/features-and-actions.md)
+
+- pr_add_docs
+- pr_update_changelog
+- pr_analyze
+- pr_test
+- pr_improve_component
+- auto_best_practices
+
 ## 버전관리 플랫폼
+
+[버전관리 플랫폼 🔗](./configurations/version-control.md)
+
+- github
+- github_action_config
+- github_app
+- gitlab
+- bitbucket_app
+- bitbucket_server
 
 ## CI/CD 및 배포
 
+[CI/CD 및 배포 🔗](./configurations/ci-cd-and-deployment.md)
+
+- local
+- gerrit
+- azure_devops_server
+
 ## 기타
+
+[기타 🔗](./configurations/etc.md)
+
+- pr_similiar_issue
+- pr_find_similiar_component
+- best_practices
+- pr_help
+- pr_help_docs
