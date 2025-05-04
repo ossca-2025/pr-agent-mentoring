@@ -46,12 +46,12 @@ require_estimate_effort_to_review=true
 ### require_tests_review: 테스트 리뷰 활성화(true)/비활성화(false) -> 테스트를 추가했을 때 "PR contains tests", 관련 테스트가 없으면 "No relevant tests"
 ![image](https://github.com/user-attachments/assets/bd1b8bc9-4263-4fed-afe4-10827a51072e)
 
-#### 테스트 커버리지 관련 테스트
+### + 테스트 커버리지 관련 테스트
 ![image](https://github.com/user-attachments/assets/62153105-57b6-4692-b383-68ca56299f14)
 
 ### require_estimate_effort_to_review: 리뷰 난이도(n/5) 라벨 표시 기능 활성화(true)/비활성화(false)
 
-#### 리뷰 관련 model 요청 및 프롬프트 분석
+### + 리뷰 관련 model 요청 및 프롬프트 분석
 외부 LLM 모델에게 전송하는 prompt는 두 부분 으로 구성됨: system prompt, user prompt
 1. 시스템 프롬프트 (System Prompt)
    - 시스템 프롬프트는 LLM에게 기본적인 역할과 임무를 설명함
@@ -120,7 +120,7 @@ if get_settings().pr_reviewer.enable_review_labels_security and get_settings().p
     return True
   ```
 
-#### github actions 동작에 관한 코드 분석 - Dockerfile부터 연관된 파일 추적
+### + github actions 동작에 관한 코드 분석 - Dockerfile부터 연관된 파일 추적
 1. DockerFile.github_action
 2. pr-agent/github_action/entrypoint.sh
 3. app/pr_agent/servers/github_action_runner.py의 메인 함수(run_action)
