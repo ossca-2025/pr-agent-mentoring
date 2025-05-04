@@ -123,6 +123,7 @@ code_suggestions:
 ### JSON이 아닌 YAML로 출력 형태로 나타낸 이유 :
 
 https://github.com/qodo-ai/pr-agent/issues/1296
+![JSON이 아닌 YAML로 출력 형태로 나타낸 이유](https://private-user-images.githubusercontent.com/21198860/378166873-47207070-9d55-43f3-80e8-09eba2a5ce07.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDYzNDgwNjEsIm5iZiI6MTc0NjM0Nzc2MSwicGF0aCI6Ii8yMTE5ODg2MC8zNzgxNjY4NzMtNDcyMDcwNzAtOWQ1NS00M2YzLTgwZTgtMDllYmEyYTVjZTA3LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA1MDQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNTA0VDA4MzYwMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTlkOGE5YjU2ZTAyMzVlNzRhZWM1MmU3NGRjYWQ2Y2Y1ZGIxNGMwNDEyMzAyZDMxNDQyM2NlOTNjZjRhZWNmZjgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.naYSGbf5bsUBxLG4BtioXGS8Q_CMsnoDHGBm2a73Puw)
 
 GPT 모델들이 JSON 으로 구조화 된 출력을 지원하고 있어도 JSON 형식은 따옴표나, 괄호 같은 형식을 지키기 위한 불필요한 토큰이 많은 것에 비해 YAML은 들여쓰기만 잘 하면 되기 때문에 task에 불필요한 토큰을 아끼고 원래 task에 집중할 수 있게 됨.
 
@@ -202,6 +203,7 @@ Extra instructions from the user:
 ---
 
 ### `/review`
+> PR이 요구사항, 코드 품질, 보안 등을 만족하는지 체크하고 평가하는 것이 목적
 
 - 관련된 티켓에 대한 검사
 
@@ -265,6 +267,7 @@ class TicketCompliance(BaseModel):
 ---
 
 ### `/improve`
+> 추가된 코드들에 대해 버그, 성능, 가독성 등에 대한 문제에 대해 어떻게 바꾸는게 좋은지 제안하는 것이 목적
 
 > improve의 경우 `pr_code_suggestions_prompts.toml` , `pr_code_suggestions_prompts_not_decoupled.toml` 2가지 파일이 존재
 > 
