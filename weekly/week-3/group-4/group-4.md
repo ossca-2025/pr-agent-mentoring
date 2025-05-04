@@ -76,7 +76,9 @@ graph TD
    - PR 파일이 없으면 -> 스킵
    - 증분 리뷰 조건 (_can_run_incremental_review()) 만족 못하면 -> 스킵
    - 증분 리뷰이고 변경 파일도 없으면 -> 스킵 + 코멘트 남기고 종료
-6. Preparing review 코멘트 임시 게시
+5. Preparing review 코멘트 임시 게시
+
+   <img width="568" alt="스크린샷 2025-05-04 오후 6 23 27" src="https://github.com/user-attachments/assets/bedd5dbe-6977-49b9-9d31-cef503b48682" />
 
 **[PROCESS] 리뷰 준비 및 AI 호출**
 
@@ -925,6 +927,11 @@ if security_concerns_bool:
 - 증분 리뷰는 변경 이력을 쌓아야 하기 때문에 → 일반 코멘트로 계속 남긴다.
 - 전체 리뷰는 이전 리뷰는 필요 없고 최신 상태만 있으면 되기 때문에 영구 코멘트로 덮어쓴다.
 
+#### 영구 코멘트 이미지
+<img width="569" alt="스크린샷 2025-05-04 오후 6 21 19" src="https://github.com/user-attachments/assets/3651d7dc-ff45-4809-bfde-d354e27d6573" />
+
+#### 일반 코멘트 이미지
+
 |  | 일반 코멘트	| 영구 코멘트 |
 | -- | -- | -- |
 | 메소드 | publish_comment() | publish_persistent_comment() |
@@ -941,7 +948,6 @@ if security_concerns_bool:
    num_new_commits = len(self.incremental.commits_range)
    not_enough_commits = num_new_commits < minimal_commits_threshold
    ```
-
 ### `minimal_minutes_for_incremental_review`: 마지막 리뷰 이후 최소 대기 시간(분)
 - 기본값: 0
 - 사용 이점: 마지막 리뷰와 시점을 비교, 너무 최근에 발생한 변경은 안정된 리뷰가 어려울 수 있다고 보고(가까운 시간 내 더 수정될 수 있음) 증분 리뷰 스킵
@@ -959,3 +965,24 @@ if security_concerns_bool:
    if condition((not_enough_commits, all_commits_too_recent)):
     return False
    ```
+
+### 증분 리뷰에 성공한 경우 이미지:
+<img width="733" alt="스크린샷 2025-05-04 오후 6 18 50" src="https://github.com/user-attachments/assets/275a191d-1b63-4117-8827-ed8440eaeb22" />
+
+### 증분 리뷰에 실패한 경우 이미지:
+<img width="728" alt="스크린샷 2025-05-04 오후 6 18 10" src="https://github.com/user-attachments/assets/7b09a16a-1ef6-45f6-8941-09c3c239b2f7" />
+
+### 리뷰할 사항이 없어 스킵된 경우 이미지
+<img width="558" alt="스크린샷 2025-05-04 오후 6 22 27" src="https://github.com/user-attachments/assets/2cf25fc1-08b4-4046-aac2-4f637548f708" />
+
+### `enable_intro_text`: 리뷰 코멘트 시작 부분에 인트로 텍스트 삽입 활성화(true)/비활성화(false)
+- 기본값: true
+- 
+### `enable_help_text`: 리뷰 코멘트 맨 마지막에 도움말 삽입 활성화(true)/비활성화(false)
+- 기본값: false (도움말 없이 종료)
+
+둘 다 false로 설정한 경우:
+<img width="564" alt="스크린샷 2025-05-04 오후 6 23 50" src="https://github.com/user-attachments/assets/bca26043-4085-40d8-be23-d2bd4347c94e" />
+
+둘 다 true로 설정한 경우:
+ <img width="566" alt="스크린샷 2025-05-04 오후 6 20 09" src="https://github.com/user-attachments/assets/1cca6a46-5e2d-4b0b-8993-9247cf349727" />
