@@ -76,8 +76,9 @@ graph TD
    - PR 파일이 없으면 -> 스킵
    - 증분 리뷰 조건 (_can_run_incremental_review()) 만족 못하면 -> 스킵
    - 증분 리뷰이고 변경 파일도 없으면 -> 스킵 + 코멘트 남기고 종료
-5. Preparing review 코멘트 임시 게시
+     <img width="558" alt="스크린샷 2025-05-04 오후 6 22 27" src="https://github.com/user-attachments/assets/2cf25fc1-08b4-4046-aac2-4f637548f708" />
 
+5. Preparing review 코멘트 임시 게시
    <img width="568" alt="스크린샷 2025-05-04 오후 6 23 27" src="https://github.com/user-attachments/assets/bedd5dbe-6977-49b9-9d31-cef503b48682" />
 
 **[PROCESS] 리뷰 준비 및 AI 호출**
@@ -114,21 +115,21 @@ graph TD
 # configuration.toml의 review 관련 옵션
 ```toml
 [pr_reviewer] # /review #
-# enable/disable features
+# enable/disable features -> <1>에서 설명
 require_score_review=false
 require_tests_review=true
 require_estimate_effort_to_review=true
 require_can_be_split_review=false
 require_security_review=true
 require_ticket_analysis_review=true
-# general options
+# general options -> <2>에서 설명
 persistent_comment=true
 extra_instructions = ""
 final_update_message = true
-# review labels
+# review labels -> <3>에서 설명
 enable_review_labels_security=true
 enable_review_labels_effort=true
-# specific configurations for incremental review (/review -i)
+# specific configurations for incremental review (/review -i) -> <4>에서 설명
 require_all_thresholds_for_incremental_review=false
 minimal_commits_for_incremental_review=0
 minimal_minutes_for_incremental_review=0
@@ -909,29 +910,29 @@ if security_concerns_bool:
 ## <4> specific configurations for incremental review
 > 조사자: 이서현
 
-
 ## Full Review vs. Incremental Review
+
 - **Full Review(전체 리뷰)** : PR 전체 변경사항(diff)를 기반으로 리뷰한다. 기본 동작 모드.
    - 동작 시점: 처음 PR이 만들어졌을 때, -i 옵션을 사용하지 않았을 때, -i 옵션을 설정했지만 Incremental 리뷰 조건이 만족되지 않았을 때.
    - `python3 -m pr_agent.cli --pr_url <PR URL> review`
    - -i 옵션을 사용하지 않은 경우 _can_run_incremental_review() 증분 리뷰 가능 체크를 건너뛰며 스킵 조건이 무시된다.
+   - 전체 리뷰는 이전 리뷰는 필요 없고 최신 상태만 있으면 되기 때문에 영구 코멘트로 덮어씀.
 - **Incremental Review(증분 리뷰)** : 마지막 리뷰 이후 새로 생긴 커밋이나 변경사항만 리뷰.
    - 사용 방법: 옵션 -i를 붙임 `python3 -m pr_agent.cli --pr_url <PR URL> review -i`
      (pr_reviewer.py의 self.incremental = self.parse_incremental(args)에서 -i를 인식, is_incremental이 True로 설정됨) 
    - 이점: 이미 리뷰한 부분은 제외 → 새로 변경된 부분만 집중해서 리뷰. 이미 리뷰 받은 후 반영한 커밋만 재검토할 때 효율적.
-   - 조건을 만족해야 함: 새 커밋이 최소 개수 이상 존재, 마지막 리뷰 이후 시간이 충분히 경과함 등 (옵션으로 임계값 설정)
-
+   - 옵션으로 동작 조건 임계값 설정 가능: 새 커밋이 최소 개수 이상 존재, 마지막 리뷰 이후 시간이 충분히 경과함
+   - 증분 리뷰는 변경 이력을 쌓아야 하기 때문에 일반 코멘트로 계속 남김.
 
 ## 일반 코멘트 (comment) vs 영구 코멘트 (persistent comment)
 
-- 증분 리뷰는 변경 이력을 쌓아야 하기 때문에 → 일반 코멘트로 계속 남긴다.
-- 전체 리뷰는 이전 리뷰는 필요 없고 최신 상태만 있으면 되기 때문에 영구 코멘트로 덮어쓴다.
+### 영구 코멘트: 리뷰 요청 시 Persistent review가 업데이트되고 코멘트가 추가됨 (새 커밋이 없어도 마지막 최신 커밋에 의해 업데이트)
+<img width="461" alt="스크린샷 2025-05-04 오후 6 31 20" src="https://github.com/user-attachments/assets/69a5a439-04c6-481d-8622-030c966e8300" />
+<img width="468" alt="스크린샷 2025-05-04 오후 6 29 22" src="https://github.com/user-attachments/assets/a96da0a2-bd9e-450b-ac20-7baddfe2e905" />
 
-#### 영구 코멘트 이미지
-<img width="569" alt="스크린샷 2025-05-04 오후 6 21 19" src="https://github.com/user-attachments/assets/3651d7dc-ff45-4809-bfde-d354e27d6573" />
-
-#### 일반 코멘트 이미지
-
+### 일반 코멘트: 리뷰 요청 시 개별적으로 리뷰 생성 (증분 리뷰인데 변경사항 없다면 skip됨)
+<img width="459" alt="스크린샷 2025-05-04 오후 6 30 05" src="https://github.com/user-attachments/assets/2da65ebe-c457-4297-ab00-d82cf1234490" />
+  
 |  | 일반 코멘트	| 영구 코멘트 |
 | -- | -- | -- |
 | 메소드 | publish_comment() | publish_persistent_comment() |
@@ -939,7 +940,6 @@ if security_concerns_bool:
 | 주 사용 시점	| 증분 리뷰 / 일반 리뷰 모두	| 일반 리뷰만 (증분은 x)
 | 코멘트 유지	| 코멘트가 계속 쌓임	| 항상 하나만 유지됨 |
 | 목적	| 일회성 리뷰 남기기 |  영구적 리뷰 기록이 필요, PR 리뷰가 진행되는 동안 최신화 | 
-
 
 ### `minimal_commits_for_incremental_review`: 증분 리뷰를 시작하기 위해 최소한으로 누적되어야 하는 커밋 수
 - 기본값: 0
@@ -965,24 +965,21 @@ if security_concerns_bool:
    if condition((not_enough_commits, all_commits_too_recent)):
     return False
    ```
-
-### 증분 리뷰에 성공한 경우 이미지:
-<img width="733" alt="스크린샷 2025-05-04 오후 6 18 50" src="https://github.com/user-attachments/assets/275a191d-1b63-4117-8827-ed8440eaeb22" />
-
-### 증분 리뷰에 실패한 경우 이미지:
+   
+#### 증분 리뷰 조건을 만족하지 못해 실패:
 <img width="728" alt="스크린샷 2025-05-04 오후 6 18 10" src="https://github.com/user-attachments/assets/7b09a16a-1ef6-45f6-8941-09c3c239b2f7" />
 
-### 리뷰할 사항이 없어 스킵된 경우 이미지
-<img width="558" alt="스크린샷 2025-05-04 오후 6 22 27" src="https://github.com/user-attachments/assets/2cf25fc1-08b4-4046-aac2-4f637548f708" />
+#### 증분 리뷰 조건을 만족해 성공:
+<img width="733" alt="스크린샷 2025-05-04 오후 6 18 50" src="https://github.com/user-attachments/assets/275a191d-1b63-4117-8827-ed8440eaeb22" />
 
 ### `enable_intro_text`: 리뷰 코멘트 시작 부분에 인트로 텍스트 삽입 활성화(true)/비활성화(false)
 - 기본값: true
-- 
+
 ### `enable_help_text`: 리뷰 코멘트 맨 마지막에 도움말 삽입 활성화(true)/비활성화(false)
 - 기본값: false (도움말 없이 종료)
 
-둘 다 false로 설정한 경우:
+#### `enable_intro_text`, `enable_help_text` 둘 다 false로 설정한 경우:
 <img width="564" alt="스크린샷 2025-05-04 오후 6 23 50" src="https://github.com/user-attachments/assets/bca26043-4085-40d8-be23-d2bd4347c94e" />
 
-둘 다 true로 설정한 경우:
+#### `enable_intro_text`, `enable_help_text` 둘 다 true로 설정한 경우:
  <img width="566" alt="스크린샷 2025-05-04 오후 6 20 09" src="https://github.com/user-attachments/assets/1cca6a46-5e2d-4b0b-8993-9247cf349727" />
