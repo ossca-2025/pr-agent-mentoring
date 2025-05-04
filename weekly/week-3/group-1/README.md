@@ -89,7 +89,7 @@ GOOGLE_AI_STUDIO.GEMINI_API_KEY="<your-api-key>"
 사용자 입력 ~ PR 반영의 과정은 크게 다음과 같이 정의할 수 있다.
 <img width="940" alt="image" src="https://github.com/user-attachments/assets/9f652499-995f-4823-8cb5-80a2778c2e41" />
 
-이 중 각종 설정 파일들을 로드하는 시점은 `CLI 엔트 포인트`이고, 이를 기반으로 변환된 LLM API를 호출하는 시점은 `PR Agent command 실행`이다.
+이 중 각종 설정 파일들을 로드하는 시점은 `CLI 엔트리 포인트`이고, 이를 기반으로 변환된 LLM API를 호출하는 시점은 `PR Agent command 실행`이다.
 
 ### 1. 사용자 입력
 

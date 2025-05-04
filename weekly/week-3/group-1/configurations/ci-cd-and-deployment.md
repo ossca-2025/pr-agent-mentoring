@@ -24,7 +24,7 @@ github에 의존하지 않고, 로컬에서만 실행해볼 때 유용함.
 
 > gerrit이란?
 > 
-- [Google에서 만든 Git 기반의 코드 리뷰 툴](gerritcodereview.com)
+- [Google에서 만든 Git 기반의 코드 리뷰 툴](https://www.gerritcodereview.com/)
 - 리뷰를 강제로 하게끔 하는 툴이기 때문에, 코드 통제가 많이 필요한 대규모 팀에서 쓰기 적합한 툴 ( + 보안강화 - SSH 사용하는 거 부터가… )
 
 ---
