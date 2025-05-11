@@ -494,7 +494,7 @@ for command in commands:
         python3 -m pr_agent.cli --pr_url https://github.com/ossca-2025-pr-agent-mentoring-group4/pr-agent/pull/2 $cmd
     done
   ```
-  ![image.png](./images/pr_image07.png)
+  ![image.png](image2.png)
 - workflow의 경우 (테스트는 아직 x)
     ```yaml
     name: PR-Agent 멀티커맨드 실행 예시
