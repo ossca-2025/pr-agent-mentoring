@@ -14,6 +14,17 @@
 
 - 마이크로서비스나 이벤트 드리븐 구조처럼 호출 스택이 여러 레이어를 거칠 때 텍스트만으로는 전체 흐름 이해가 불가능
 
+`Command로 직접 날릴 수 있는 것으로 파악되었으나, parameter 형식으로  `
+
+```bash
+/describe
+--pr_description.extra_instructions="
+The 'Description ' part should also include a mermaid diagram"
+"
+```
+
+![img.png](img.png)
+
 ## 구현방법
 
 ### `1. 구성 옵션 반영`
@@ -46,6 +57,16 @@
     
 #### **확장성 기반 마련** 
 - Mermaid 외 PlantUML 등 다른 다이어그램 형식 추가도 쉽게 확장 가능
+
+## 관련 문의
+![img_3.png](img_3.png)
+![img_2.png](img_2.png)
+```
+--pr_description.add_diagram=true
+```
+
+
+![img_1.png](img_1.png)
 
 
 ## 참조

@@ -1,5 +1,7 @@
 # [LocalProvider - 동작 검증 및 문서화]
 
+![img_4.png](img_4.png)
+
 ## 현재 문제점
 
 - configuration.toml의 local 옵션 기능 동작이 불분명.
