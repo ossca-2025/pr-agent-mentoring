@@ -415,11 +415,8 @@ TOML에서 `scan_patterns` 리스트를 읽어와.
 ---
   
 4. 선택 확장 가능 아이디어
-   1) TODO ->  GitHub Issue 자동 전환
-      - 감지된 TODO 주석을 기반으로 `gh issue create` API 호출 가능
-   2) 의존성 버전 변경 자동 감지
-      - requirements.txt, package.json 등에서 version 필드를 비교해 변경 사항을 별도 summary 블록으로 정리
-
-정리하자면, 3️⃣ describe 명령에 TODO/FIXME 자동 수집 기능 추가 아이디어는, 리뷰 중 놓치기 쉬운 TODO/FIXME 항목을 자동 감지하고 PR 설명에 요약해줌으로써, 리뷰 품질과 작업 추적력을 모두 높이는 기능입니다.
-
+1) TODO ->  GitHub Issue 자동 전환
+     - 감지된 TODO 주석을 기반으로 `gh issue create` API 호출 가능
+2) 의존성 버전 변경 자동 감지
+     - requirements.txt, package.json 등에서 version 필드를 비교해 변경 사항을 별도 summary 블록으로 정리
 ---
