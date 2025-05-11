@@ -1,0 +1,14 @@
+[pr_description]
+extra_instructions="""\
+- respond in korean.
+"""
+
+[pr_reviewer]
+extra_instructions="""\
+- respond in korean.
+"""
+
+[pr_code_suggestions]
+extra_instructions="""\
+- respond in korean.
+"""
