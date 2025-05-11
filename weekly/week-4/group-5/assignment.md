@@ -418,5 +418,5 @@ TOML에서 `scan_patterns` 리스트를 읽어와.
 1) TODO ->  GitHub Issue 자동 전환
      - 감지된 TODO 주석을 기반으로 `gh issue create` API 호출 가능
 2) 의존성 버전 변경 자동 감지
-     - requirements.txt, package.json 등에서 version 필드를 비교해 변경 사항을 별도 summary 블록으로 정리
+     - requirements.txt, package.json 등에서 version 필드를 비교해 변경 사항을 별도 summary 블록으로 정리 
 ---
