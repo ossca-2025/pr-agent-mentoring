@@ -391,7 +391,7 @@ pr_agent.py
 3. commands 안의 명령어(command)를 하나씩 진행
     1. 하나씩 진행할 때마다 handle_request를 불러서 코멘트 생성되도록 함..
 
-### 해결 방안
+### 해결 방안1
 
 **line 119**의 코드를 다음과 같이 수정.
 
@@ -460,6 +460,63 @@ for command in commands:
 - `/review\n/improve` → 줄바꿈으로도 분리되는지
 - `/review # 설명` → 주석 잘 확인하는지
 - `/review && /review && /review` → 같은 명령어를 여러 개 입력한 경우 여러 번 호출을 방지
+
+---
+
+### 현재 설계의 이유 분석
+왜 현재는 한 코멘트당 단일 명령을 처리하게 설계되어있을까?
+1. 파싱 로직 단순화
+    - 첫 번째 매칭만 취하는 방식이 가장 간단하고 직관적
+    - 다중 명령어 지원 시 키워드 실생 순서를 결정하기 위한 문맥 파싱과 트리 구축이 필요
+2. 명령 간 우선순위·충돌 관리
+    - 순차 실행 혹은 동시 실행 전략을 정의·테스트해야 하며, 에러 발생 시 롤백 정책도 설계해야 함
+3. 유지보수 및 안정성
+    - 다중 지원 시 파서(parser) 모듈, 실행 스케줄러, 에러 핸들러 등 전반적인 리팩토링이 요구됨
+4. GitHub 웹훅 이벤트 특성
+    - 하나의 코멘트 이벤트에서 다수의 결과(레이블링·코멘트·할당 등)를 처리하려면, GitHub API 호출을 배치(batch)하거나 트랜잭션으로 묶어야 함
+    - 현재는 “한 개의 액션 → 한 개의 API 호출” 패턴으로 설계되어 있어 확장이 번거로움
+5. AI 생성 메타데이터 충돌 가능성
+    - /describe 명령을 처음 실행하면, PR Type, PR 요약, 파일별 변경점 정리 메타데이터가 생성됨
+    - 이 메타데이터는 이후 /review·/improve 등 후속 명령에서 자동으로 프롬프트에 주입되어, chain-of-thought 분석을 지원
+    -> 사용자가 기대하는 순서와 다르게 실행될 가능성. (ex. A사용자는 먼저 작성한 명령어부터 실행될 것으로 생각 / B사용자는 /describe부터 실행될 것으로 생각)
+
+
+### 비동기 또는 병렬 처리 방식은?
+- PR-Agent 내부에서 코멘트를 토큰화 하여 여러 명령어를 분할 후, 3개의 요청이 왔던 것처럼 비동기 또는 병렬 처리 후 결과 도출
+- 커맨드를 꼭 한번에 여러 개 입력해 토큰화해야 하는가? 명령줄을 여러 번 입력해야 하는 것이 번거로운 거라면, shell이나 워크플로우에서 다중 입력하면 된다는 방법을 소개하는 것도 좋을 것으로 생각된다.
+
+
+### 해결 방안2
+- python 코드 수정할 필요 없이, CLI 레벨에서 및 workflow 레벨에서 명령어를 병렬적으로 실행할 수 있다는 예제를 추가
+- shell의 경우
+```shell
+    for cmd in review describe; do
+        python3 -m pr_agent.cli --pr_url https://github.com/ossca-2025-pr-agent-mentoring-group4/pr-agent/pull/2 $cmd
+    done
+  ```
+  ![image.png](./images/pr_image07.png)
+- workflow의 경우 (테스트는 아직 x)
+    ```yaml
+    name: PR-Agent 멀티커맨드 실행 예시
+
+    on:
+    issue_comment:
+        types: [created]
+
+    jobs:
+    run-multi-commands:
+        runs-on: ubuntu-latest
+        strategy:
+        matrix:
+            cmd: [describe, review, improve]  # 실행하고 싶은 명령어들
+        steps:
+        - uses: actions/checkout@v3
+        - name: PR-Agent 실행: ${{ matrix.cmd }}
+            uses: qodo-ai/pr-agent@v0.28
+            with:
+            command: ${{ matrix.cmd }}
+    ```
+
 
 ---
 
