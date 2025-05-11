@@ -37,4 +37,4 @@ client = OpenAI(reasoning_effort=get_reasoning_effort())
   - 복잡한 PR 분석 시 높은 추론 강도로 심층 분석 유도 가능
 
 ## 관련문의
-![img_5.png](img_5.png)
+![img_5.png](../img_5.png)

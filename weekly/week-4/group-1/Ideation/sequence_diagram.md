@@ -23,7 +23,7 @@ The 'Description ' part should also include a mermaid diagram"
 "
 ```
 
-![img.png](img.png)
+![img.png](../img.png)
 
 ## 구현방법
 
@@ -59,14 +59,14 @@ The 'Description ' part should also include a mermaid diagram"
 - Mermaid 외 PlantUML 등 다른 다이어그램 형식 추가도 쉽게 확장 가능
 
 ## 관련 문의
-![img_3.png](img_3.png)
-![img_2.png](img_2.png)
+![img_3.png](../img_3.png)
+![img_2.png](../img_2.png)
 ```
 --pr_description.add_diagram=true
 ```
 
 
-![img_1.png](img_1.png)
+![img_1.png](../img_1.png)
 
 
 ## 참조
