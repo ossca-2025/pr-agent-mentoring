@@ -4,7 +4,7 @@
 - OSSCA 2025 멘토링 프로그램을 통해 기여하는 pr은 멘토링 org의 pr agent 리포에서 협업
   - https://github.com/ossca-2025/pr-agent
 - 브랜치 네이밍
-  - feature/{group-n}/{feature-name}
+  - feature/{group-n}-{feature-name}
   - fix, doc, refactor 등의 브랜치도 동일한 규칙
 - 개발완료후 
   - 작업브랜치 -> ossca-2025/pr-agent main 으로 머지하는 pr 생성후 내부 리뷰.
