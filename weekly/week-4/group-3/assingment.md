@@ -21,13 +21,13 @@
 
 - 2주 안에 실행 가능한 영역 생각하기.
 - 불편하거나, 버그인 부분을 발견하면 -> 개선하기.
-- ![컨트리뷰트](images/how_to_contri.png)
+ ![컨트리뷰트](images/how_to_contri.png)
 - 단순 오타 / 주석 처리도 가벼운 것이 아니다.
-- ![문구 개선](images/docs_merged_fast.jpg)
+ ![문구 개선](images/docs_merged_fast.jpg)
 - 코드 자체를 수정 / Qodo Merge 유료 기능일 경우 지양한다.
-- [#1587 Improve 개선 요청](https://github.com/qodo-ai/pr-agent/issues/1587)
-- ![의견 제시](images/1587_improve_gogo.png)
-- ![반려](images/1587_improve_nono.png)
+ [#1587 Improve 개선 요청](https://github.com/qodo-ai/pr-agent/issues/1587)
+ ![의견 제시](images/1587_improve_gogo.png)
+ ![반려](images/1587_improve_nono.png)
 
 ---
 
@@ -37,7 +37,7 @@
 
 - PR Agent의 `/algo` 디렉터리 내부에는 수많은 함수가 존재합니다.
   이 중에서 상당수가 '불필요한 반복문 중첩', '예외처리 부족', '메모리 성능 개선'의 필요성이 존재합니다.
-- 이러한 부분을 다음 기준으로 기여를 하려고 합니다:
+- 이러한 부분을 다음 기준으로 기여를 하려고 합니다
   1. 서비스에 영향을 적게 주며
   2. 코드 수정보다 버그 개선 등 부분 위주로
   3. 수정하고 PR 하기
@@ -146,10 +146,12 @@
   GitLab 환경에서 PR Agent를 사용할 경우 이러한 자동 태깅 기능이 부족한 것으로 파악됩니다.
   GitLab Merge Request(MR)에 대해 특정 조건
   (예: 수정된 파일 경로, 코드 키워드, MR 제목/설명 키워드 등)을 만족할 경우, 자동으로 관련 태그(GitLab에서는 '라벨' 기능)를 부착해주는 "Tagging Bot" 기능을 PR Agent에 추가할 것을 고려했습니다.
-* **관련 PR Agent 기능/모듈/파일**
+  
+* **관련 PR Agent 기능/모듈**
   * `pr_agent/git_providers/gitlab_provider.py` (수정 영역)
   * `pr_agent/tools/` 내 신규 도구 추가 또는 기존 도구 `pr_generate_labels.py` 확장
   * `configuration.toml`에 GitLab 자동 태깅 관련 신규 설정 옵션 추가
+
 * **현재 상태**
   * PR Agent는 GitLab 연동을 지원하지만, GitHub의 "Tagging Bot"처럼 Merge Request 내용이나 조건에 따라 자동으로 라벨(태그)을 다양하게 부착하는 기능은 미비하거나 제한적입니다.
   * 현재 `/generate_labels` 명령어가 존재하지만, 푸시 이벤트나 MR 생성 시점에 자동으로 다양한 조건에 따라 실행되고 태그를 부착하는 포괄적인 "Bot"의 형태는 아닌 것으로 파악됩니다.
@@ -160,7 +162,8 @@
   * GitLab 사용자는 MR의 성격(버그 수정, 기능 추가, 문서 작업 등)이나 영향 범위(프론트엔드, 백엔드, 특정 모듈 등)를 나타내는 라벨을 수동으로 부착해야 하는 번거로움이 있습니다.
   * 자동 태깅 부재로 인해 MR 관리 및 검색, 분류의 효율성이 저하될 수 있습니다.
   * GitHub 환경 대비 GitLab 환경에서의 PR Agent 기능적 동등성(parity) 및 사용자 경험 향상이 필요합니다.
-* **기대 효과 / 목표:**
+  
+* **기대 효과**
   * GitLab 사용자의 수동 라벨링 작업 감소.
   * 자동 분류를 통해 프로젝트 관리 용이성 향상.
   * GitLab 환경에서의 PR Agent 활용 가치 증대 및 기능 확장, 이를 토대로
