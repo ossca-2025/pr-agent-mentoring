@@ -1,6 +1,17 @@
-# 오픈소스 프로젝트 PR 기여 시 체크리스트
+# 오픈소스 프로젝트 PR 기여 가이드
 
----
+## 작업 리포, 브랜치, pr 생성
+- OSSCA 2025 멘토링 프로그램을 통해 기여하는 pr은 멘토링 org의 pr agent 리포에서 협업
+  - https://github.com/ossca-2025/pr-agent
+- 브랜치 네이밍
+  - feature/{group-n}/{feature-name}
+  - fix, doc, refactor 등의 브랜치도 동일한 규칙
+- 개발완료후 
+  - 작업브랜치 -> ossca-2025/pr-agent main 으로 머지하는 pr 생성후 내부 리뷰.
+- 내부 리뷰 완료후
+  - 작업브랜치 -> qodo-ai/pr-agent main 으로 머지하는 pr 생성.
+
+## pr 주제 선정 및 작성시 체크리스트
 
 ### 사전 준비 및 확인 사항
 
