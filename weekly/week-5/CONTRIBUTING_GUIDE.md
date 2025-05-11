@@ -6,8 +6,7 @@
 - 브랜치 네이밍
   - feature/{group-n}-{feature-name}
   - fix, doc, refactor 등의 브랜치도 동일한 규칙
-- 개발완료후 
-  - 작업브랜치 -> ossca-2025/pr-agent main 으로 머지하는 pr 생성후 내부 리뷰.
+- 개발완료후 개별 브랜치에서 리뷰
 - 내부 리뷰 완료후
   - 작업브랜치 -> qodo-ai/pr-agent main 으로 머지하는 pr 생성.
 
