@@ -9,7 +9,7 @@ PR-Agent 코드베이스 내 테스트 커버리지가 낮거나 비어 있는 �
 
 - `unittest/test_try_fix_yaml.py`
     - 송지웅, 이상현
-- `unittest/fetching_sub_issues.py`
+- `unittest/test_fetching_sub_issues.py`
     - 김상은, 이예찬
 - `unittest/test_fetching_handler.py`
     - 원종인
