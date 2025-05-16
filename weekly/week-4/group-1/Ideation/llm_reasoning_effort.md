@@ -35,3 +35,6 @@ client = OpenAI(reasoning_effort=get_reasoning_effort())
 - 운영 환경에 따라 REASONING_EFFORT 환경변수로 추론 강도를 유연하게 조절 가능
   - 낮은 추론 강도를 선택 시 API 토큰 사용량 및 응답 시간 감소로 비용 절감.
   - 복잡한 PR 분석 시 높은 추론 강도로 심층 분석 유도 가능
+
+## 관련문의
+![img_5.png](../img_5.png)

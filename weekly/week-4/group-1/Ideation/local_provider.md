@@ -1,5 +1,7 @@
 # [LocalProvider - 동작 검증 및 문서화]
 
+![img_4.png](../img_4.png)
+
 ## 현재 문제점
 
 - configuration.toml의 local 옵션 기능 동작이 불분명.
@@ -22,8 +24,8 @@ git_provider = "local"
 
 [local]
 # required
-description_path    = "./description.md"
-review_path         = "./review.md"
+description_path    = "./description.md"    # /describe 결과를 쓸 경로
+review_path         = "./review.md"         # /review 결과를 쓸 경로
 
 # optional
 branch_base         = "main"
@@ -41,6 +43,14 @@ auto_generate_patch = true
 - 환경 변수 연동법 문서화.
 
 
+## 사용법
+1. 로컬 저장소 루트에서 configuration.toml 설정
+2. 터미널 명령
+
+```bash
+pr-agent --git-provider local /describe
+```
+3. 각각 description_path, review_path에 출력확인
 
 ## 기대효과
 - GitHub/GitLab 등의 원격 저장소 없이 로컬 저장소로만 /describe, /review, /improve 기능 사용 가능.
